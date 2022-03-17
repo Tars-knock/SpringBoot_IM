@@ -3,6 +3,7 @@ package cn.tarsknock.helloboot.Configuration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import redis.clients.jedis.JedisPool;
@@ -50,17 +51,13 @@ public class JedisConfig extends CachingConfigurerSupport {
 
 
     @Bean
-    public JedisPool redisPoolFactory(){
+    public JedisPool jedisPool() {
         JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
         jedisPoolConfig.setMaxIdle(maxIdle);
-        jedisPoolConfig.setMaxWaitMillis(maxWaitMillis);
-        jedisPoolConfig.setMaxTotal(maxActive);
         jedisPoolConfig.setMinIdle(minIdle);
-        JedisPool jedisPool = new JedisPool(jedisPoolConfig,host,port,timeout,password);
-
-        log.info("JedisPool注入成功！");
-        log.info("redis地址：" + host + ":" + port);
-        return  jedisPool;
+        jedisPoolConfig.setmax
+        jedisPoolConfig.setMaxWaitMillis(maxWaitMillis);
+        return new JedisPool(jedisPoolConfig, host, port, timeout, password);
     }
 
 }
